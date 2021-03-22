@@ -1,0 +1,21 @@
+{
+  "development": {
+    "DATABASE_URL" : "postgres://ruujawro:UiIHH7ef2TSZpX9trFpmTqpHNlUIJMTN@satao.db.elephantsql.com:5432/ruujawro"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "fileSharing_test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "fileSharing_prod",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
