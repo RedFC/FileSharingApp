@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-let privateKEY = fs.readFileSync('cert/myKey.pem', 'utf8');
-let privateRefKEY = fs.readFileSync('cert/myrefKey.pem', 'utf8');
-let publicRefKEY = fs.readFileSync('cert/myrefKey.pub', 'utf8');
+let privateKEY = fs.readFileSync('config/cert/myKey.pem', 'utf8');
+let privateRefKEY = fs.readFileSync('config/cert/myrefKey.pem', 'utf8');
+let publicRefKEY = fs.readFileSync('config/cert/myrefKey.pub', 'utf8');
 
 let client = require('./redis.service');
 
