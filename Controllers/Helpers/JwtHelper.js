@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 var read = require('read-file');
+let approot = require('app-root-path');
 
-let privateKEY = read.sync('config/cert/myKey.pem', 'utf8');;
-let privateRefKEY = read.sync('config/cert/myrefKey.pem', 'utf8');;
-let publicRefKEY = read.sync('config/cert/myrefKey.pub', 'utf8');;
+let privateKEY = read.sync(approot+'/config/cert/myKey.pem', 'utf8');
+let privateRefKEY = read.sync(approot+'/config/cert/myrefKey.pem', 'utf8');
+let publicRefKEY = read.sync(approot+'/config/cert/myrefKey.pub', 'utf8');
 
 let client = require('./redis.service');
 
