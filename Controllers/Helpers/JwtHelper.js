@@ -2,9 +2,8 @@ const jwt = require('jsonwebtoken');
 var read = require('read-file');
 let approot = require('app-root-path');
 
-let privateKEY = read.sync(approot+'/config/cert/myKey.pem', 'utf8');
-let privateRefKEY = read.sync(approot+'/config/cert/myrefKey.pem', 'utf8');
-let publicRefKEY = read.sync(approot+'/config/cert/myrefKey.pub', 'utf8');
+let publiceKEY = "9ccc4b4b-4439-4b07-9306-1b24b9694d10"
+let publicRefKEY = "0a8b106e-8beb-11eb-8dcd-0242ac130003";
 
 let client = require('./redis.service');
 
@@ -20,7 +19,7 @@ exports.signingAccesToken = (payload) => {
     };
     const token = jwt.sign({
         id: payload
-    }, privateKEY, signOptions);
+    }, publiceKEY, signOptions);
     return token;
 }
 
@@ -35,7 +34,7 @@ exports.signingRefreshToken = (payload) => {
     };
     const reftoken = jwt.sign({
         id: payload
-    }, privateRefKEY, signOptions);
+    }, publicRefKEY, signOptions);
     client.set(String(payload), String(reftoken), 'EX', 365 * 24 * 60 * 60, (err, reply) => {
         if (err) {
             console.log(err.message)
