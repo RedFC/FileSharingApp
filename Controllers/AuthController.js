@@ -78,14 +78,16 @@ class AuthController {
         const {error} = validation(req.body);
         if(error) return res.status(400).send(error.details[0].message);
     
-        let user = await users.findOne({email : req.body.email,where : {emailVerified : true}});
+        let user = await users.findOne({raw:true,email : req.body.email,where : {emailVerified : true}});
         if(!user) return res.status(400).send({message:"Invalid Email Or Password"});
     
         let password = await bcrypt.compare(req.body.password,user.password);
         if(!password) return res.status(400).send({message:"Invalid Email Or Password"});
+
+        console.log(user);
     
-        let Token = signingAccesToken(user._id);
-        let refToken = signingRefreshToken(user._id);
+        let Token = signingAccesToken(user.id);
+        let refToken = signingRefreshToken(user.id);
 
         res.header("x-auth-token",Token).send({message : "user Logged In Successfully",data : user,accessToken : Token,refreshToken : refToken});
     }

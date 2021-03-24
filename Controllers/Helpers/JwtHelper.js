@@ -1,21 +1,21 @@
 const jwt = require('jsonwebtoken');
-var read = require('read-file');
-let approot = require('app-root-path');
+// var read = require('read-file');
+// let approot = require('app-root-path');
 
 let publiceKEY = "9ccc4b4b-4439-4b07-9306-1b24b9694d10"
 let publicRefKEY = "0a8b106e-8beb-11eb-8dcd-0242ac130003";
 
 let client = require('./redis.service');
 
-
 exports.signingAccesToken = (payload) => {
-    var i = "ExpenseTrack";
-    var s = "expensetrack@gmail.com";
+    console.log(payload);
+    var i = "filesharing";
+    var s = "filesharing@gmail.com";
     var signOptions = {
-        expiresIn: '60s',
+        expiresIn: '800s',
         issuer: i,
         subject: s,
-        algorithm: "RS256",
+        
     };
     const token = jwt.sign({
         id: payload
@@ -24,13 +24,13 @@ exports.signingAccesToken = (payload) => {
 }
 
 exports.signingRefreshToken = (payload) => {
-    var i = "ExpenseTrack";
-    var s = "expensetrack@gmail.com";
+    var i = "filesharing";
+    var s = "filesharing@gmail.com";
     var signOptions = {
         expiresIn: '2592000s',
         issuer: i,
         subject: s,
-        algorithm: "RS256",
+        
     };
     const reftoken = jwt.sign({
         id: payload
@@ -50,12 +50,12 @@ exports.verifyRefreshToken = (RefToken) => {
     if (!RefToken) return "Forbidden Access Denied. No Token Found";
 
     try {
-        var i = "ExpenseTrack";
-        var s = "expensetrack@gmail.com";
+        var i = "filesharing";
+        var s = "filesharing@gmail.com";
         var verifyOptions = {
             issuer: i,
             subject: s,
-            algorithm: "RS256",
+            
         };
         const decoded = jwt.verify(RefToken, publicRefKEY, verifyOptions);
         return decoded
