@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/auth',require('./Routers/Auth.router'))
+app.use('/api/upload',require('./Routers/uploads.router'))
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 // app.get('*', (req, res) => res.status(200).send({
@@ -41,7 +42,8 @@ const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
 const path = require('path');
-app.use(express.static(path.resolve('./public')));
+app.use("/uploads", express.static("uploads"));
+app.use(express.static(path.resolve('./uploads')));
 
 const server = http.createServer(app);
 server.listen(port);
