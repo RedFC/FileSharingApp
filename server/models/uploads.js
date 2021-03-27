@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   uploads.init({
     title: DataTypes.STRING,
-    image: DataTypes.STRING,
     file: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {

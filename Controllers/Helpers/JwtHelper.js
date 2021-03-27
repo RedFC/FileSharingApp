@@ -12,7 +12,6 @@ exports.signingAccesToken = (payload) => {
     var i = "filesharing";
     var s = "filesharing@gmail.com";
     var signOptions = {
-        expiresIn: '4000s',
         issuer: i,
         subject: s,
         

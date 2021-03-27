@@ -14,20 +14,13 @@ class uploadController {
                 res.status(500).send({
                     message: "Title is Required"
                 });
-            } else if (!req.files.image[0]) {
-                res.status(500).send({
-                    message: "Image is Required"
-                });
-            } else if (!req.files.pdfs[0]) {
-                res.status(500).send({
-                    message: "Pdf is Required"
-                });
             }
+
+            if(!req.file) return res.status(500).send({message : "File Is Required"});
 
             let schema = {
                 title: req.body.title,
-                image: req.files.image[0].path,
-                file: req.files.pdfs[0].path,
+                file: req.file.path,
                 userId: req.user.id
             }
 

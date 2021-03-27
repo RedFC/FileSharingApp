@@ -7,14 +7,10 @@ const upload = fileUpload("image");
 let uploadController = require('../Controllers/UploadController');
 let uploadControllers = new uploadController()
 
-router.post("/create",TokenAuth,upload.fields([{
-    name: 'image', maxCount: 1
-  }, {
-    name: 'pdfs', maxCount: 1
-  }]),uploadControllers.upload)
+router.post("/create",TokenAuth,upload.single('file'),uploadControllers.upload);
 
 router.get("/getall",TokenAuth,uploadControllers.getAll);
-router.get("/download/:url",TokenAuth,uploadControllers.download);
+router.get("/download/:url",uploadControllers.download);
 
 
 module.exports = router;
