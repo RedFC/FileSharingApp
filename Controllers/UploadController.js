@@ -51,6 +51,11 @@ class uploadController {
                 })
             }
 
+            res.send({
+                message: "success",
+                data: "No Data Found"
+            })
+
         } catch (error) {
             res.status(500).send({
                 message: error.message
