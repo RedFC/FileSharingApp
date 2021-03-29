@@ -32,6 +32,9 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.users.hasMany(db.uploads);
+db.uploads.belongsTo(db.users);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

@@ -1,8 +1,8 @@
 const upload = require('../server/models').uploads;
+const users = require('../server/models').users;
 const _ = require('lodash');
 const Joi = require('joi');
 var download = require('download-pdf')
-
 
 class uploadController {
 
@@ -11,13 +11,16 @@ class uploadController {
         try {
 
             if (!req.body.title) {
-                res.status(500).send({
-                    message: "Title is Required"
-                });
+                res
+                    .status(500)
+                    .send({message: "Title is Required"});
             }
 
-            if(!req.file) return res.status(500).send({message : "File Is Required"});
-
+            if (!req.file) 
+                return res
+                    .status(500)
+                    .send({message: "File Is Required"});
+            
             let schema = {
                 title: req.body.title,
                 file: req.file.path,
@@ -26,16 +29,13 @@ class uploadController {
 
             let uploads = await upload.create(schema);
             if (uploads) {
-                res.send({
-                    message: "Documents Uploaded",
-                    data: uploads
-                })
+                res.send({message: "Documents Uploaded", data: uploads})
             }
 
         } catch (error) {
-            res.status(500).send({
-                message: error.message
-            })
+            res
+                .status(500)
+                .send({message: error.message})
         }
 
     }
@@ -43,23 +43,21 @@ class uploadController {
     getAll = async (req, res) => {
         try {
 
-            let fileUpload = await upload.findAll();
+            let fileUpload = await upload.findAll({
+                include:{
+                        model: users
+                    }
+            });
             if (fileUpload.length) {
-                res.send({
-                    message: "success",
-                    data: fileUpload
-                })
+                res.send({message: "success", data: fileUpload})
             }
 
-            res.send({
-                message: "success",
-                data: "No Data Found"
-            })
+            res.send({message: "success", data: "No Data Found"})
 
         } catch (error) {
-            res.status(500).send({
-                message: error.message
-            })
+            res
+                .status(500)
+                .send({message: error})
         }
     }
 
@@ -67,21 +65,20 @@ class uploadController {
 
         try {
 
-            let url = "uploads/"+req.params.url
-            res.download(url)
+            let url = "uploads/" + req
+                .params
+                .url
+                res
+                .download(url)
 
         } catch (error) {
-            res.status(500).send({
-                message: error.message
-            })
+            res
+                .status(500)
+                .send({message: error.message})
         }
 
     }
 
-
 }
-
-
-
 
 module.exports = uploadController;
